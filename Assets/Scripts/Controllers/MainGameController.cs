@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 /*
- * Handle player, power-ups, and enemies initialization
+ * Manages player, power-ups, and enemies initialization
  */
 public class MainGameController : MonoBehaviour {
 
@@ -16,7 +14,7 @@ public class MainGameController : MonoBehaviour {
     private int playerScore;
     private bool stopSpawning;
     
-    //Clear or initialize the game scene
+    //Clears or initialize the game scene
     public void SetGameScene(ApplicationState currentState, ApplicationState nextState)
     {
         if (currentState != ApplicationState.PAUSE && nextState == ApplicationState.GAME)
@@ -41,7 +39,7 @@ public class MainGameController : MonoBehaviour {
 
     public void TrySpawnPowerUp(Vector3 position)
     {
-        if (UnityEngine.Random.Range(0, 99) < 20)
+        if (UnityEngine.Random.Range(0, 100) < 20)
         {
 
             PowerUp powerUp = GameObject.Instantiate(this.powerUpPrefab) as PowerUp;
@@ -76,9 +74,10 @@ public class MainGameController : MonoBehaviour {
         Camera mainCamera = Camera.main;
         Vector2 spawnPosition = Vector2.zero;
         Vector2 spawnScreenPosition = Vector2.zero;
+        yield return new WaitForSeconds(2); // Deplay enemies spawning
         while (!this.stopSpawning)
         {
-            if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
+            if (ApplicationController.Instance.applicationState == ApplicationState.GAME)
             {
                 float randomSpawnCooldown = UnityEngine.Random.Range(0.25f, 1.5f); // Spawn enemy at variable speed
                 int randomEnemyType = UnityEngine.Random.Range(0, this.enemiesPrefab.Length); // Spawn a random type of enemy

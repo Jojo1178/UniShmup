@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MainGameUI : MonoBehaviour
@@ -10,16 +8,16 @@ public class MainGameUI : MonoBehaviour
 
     private void Update()
     {
-        this.scoreText.text = "Score :  " + ApplicationController.INSTANCE.mainGameController.GetPlayerScore().ToString();
+        this.scoreText.text = "Score :  " + ApplicationController.Instance.mainGameController.GetPlayerScore().ToString();
 
-        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME && Input.GetButton("Cancel"))
+        if (ApplicationController.Instance.applicationState == ApplicationState.GAME && Input.GetButton("Cancel"))
         {
-            ApplicationController.INSTANCE.SwitchApplicationState(ApplicationState.PAUSE);
+            ApplicationController.Instance.ChangeApplicationState(ApplicationState.PAUSE);
         }
     }
 
     public void PauseButtonOnClick()
     {
-        ApplicationController.INSTANCE.SwitchApplicationState(ApplicationState.PAUSE);
+        ApplicationController.Instance.ChangeApplicationState(ApplicationState.PAUSE);
     }
 }

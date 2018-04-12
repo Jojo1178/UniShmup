@@ -8,16 +8,16 @@ public class GameOverUI : MonoBehaviour {
 
     private void OnEnable()
     {
-        this.finalScoreText.text = "Your final score is :\n" + ApplicationController.INSTANCE.mainGameController.GetPlayerScore().ToString();
+        this.finalScoreText.text = "Your final score is :\n" + ApplicationController.Instance.mainGameController.GetPlayerScore().ToString();
     }
 
     public void MainMenuButtonOnClick()
     {
-        ApplicationController.INSTANCE.SwitchApplicationState(ApplicationState.MAINMENU);
+        ApplicationController.Instance.ChangeApplicationState(ApplicationState.MAINMENU);
     }
 
     public void ExitButtonOnClick()
     {
-        ApplicationController.INSTANCE.QuitApplication();
+        ApplicationController.Instance.QuitApplication();
     }
 }

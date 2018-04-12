@@ -13,9 +13,9 @@ public class Weapon : MonoBehaviour {
     }
 
     public Bullet bulletPrefab;
-    public float shootTimer = 0.5f; // delay between each shot
+    public float shotDelay = 0.5f; // Delay between each shot
 
-    private float shootCooldown; // time since last shot
+    private float shootCooldown; // Time since last shot
 
 
     private void Start () {
@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour {
     }
 	
 	private void Update () {
-        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
+        if (ApplicationController.Instance.applicationState == ApplicationState.GAME)
         {
             if (this.shootCooldown > 0)
             {
@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour {
     {
         if (this.canShoot)
         {
-            this.shootCooldown = this.shootTimer;
+            this.shootCooldown = this.shotDelay;
 
             //Bullet instantiation
             Bullet bullet = GameObject.Instantiate(this.bulletPrefab) as Bullet;
@@ -44,7 +44,7 @@ public class Weapon : MonoBehaviour {
             bullet.direction = this.transform.up;
             if (bullet.isEnemyBullet)
                 bullet.direction *= -1; // enemy shoot towards the bottom of the screen
-            bullet.transform.SetParent(ApplicationController.INSTANCE.mainGameController.gameSceneRoot, false);
+            bullet.transform.SetParent(ApplicationController.Instance.mainGameController.gameSceneRoot, false);
 
         }
     }

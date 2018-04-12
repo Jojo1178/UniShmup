@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 114336396354689428, guid: 4eb33d60a9f675d4d8fb3208b8104975,
     type: 2}
-  shootTimer: 0.2
+  shotDelay: 0.3
 --- !u!114 &114202766045837364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 114336396354689428, guid: 4eb33d60a9f675d4d8fb3208b8104975,
     type: 2}
-  shootTimer: 0.2
+  shotDelay: 0.3
 --- !u!114 &114561026714957024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787e6a5e5795b1345a3484efd5320310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 0.4
   direction: {x: 0, y: 0}
 --- !u!114 &114853737463871308
 MonoBehaviour:
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 114336396354689428, guid: 4eb33d60a9f675d4d8fb3208b8104975,
     type: 2}
-  shootTimer: 0.2
+  shotDelay: 0.3
 --- !u!212 &212402424965530932
 SpriteRenderer:
   m_ObjectHideFlags: 1

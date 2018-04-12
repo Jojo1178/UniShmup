@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Player : Spawnable
 {
-    private Weapon[] weapons; //Player available weapons
+    private Weapon[] weapons; //Player's available weapons
     private Camera mainCamera;
 
     private void Awake()
@@ -16,7 +15,7 @@ public class Player : Spawnable
 
     private void Update()
     {
-        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
+        if (ApplicationController.Instance.applicationState == ApplicationState.GAME)
         {
             // Checking if mouse isn't over an UI element and if fire button is pressed
             bool shootInput = !EventSystem.current.IsPointerOverGameObject() && (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"));
@@ -35,7 +34,7 @@ public class Player : Spawnable
 
     private void FixedUpdate()
     {
-        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
+        if (ApplicationController.Instance.applicationState == ApplicationState.GAME)
         {
             //Get direction input
             float inputX = Input.GetAxis("Horizontal");
@@ -56,7 +55,7 @@ public class Player : Spawnable
     public void OnHitByEnemy()
     {
         GameObject.Destroy(this.gameObject);
-        ApplicationController.INSTANCE.SwitchApplicationState(ApplicationState.GAMEOVER);
+        ApplicationController.Instance.ChangeApplicationState(ApplicationState.GAMEOVER);
     }
 
     //When player get a power-up

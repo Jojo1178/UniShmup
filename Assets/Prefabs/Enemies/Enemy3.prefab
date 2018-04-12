@@ -161,7 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 114939814213035638, guid: 69175e39d72e2a64e92c0514e0143174,
     type: 2}
-  shootTimer: 2
+  shotDelay: 1
 --- !u!114 &114770152388643100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 114939814213035638, guid: 69175e39d72e2a64e92c0514e0143174,
     type: 2}
-  shootTimer: 2
+  shotDelay: 1
 --- !u!114 &114975280873792340
 MonoBehaviour:
   m_ObjectHideFlags: 1

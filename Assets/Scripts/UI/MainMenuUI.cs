@@ -12,12 +12,12 @@ public class MainMenuUI : MonoBehaviour {
 
     public void NewGameButtonOnClick()
     {
-        ApplicationController.INSTANCE.SwitchApplicationState(ApplicationState.GAME);
+        ApplicationController.Instance.ChangeApplicationState(ApplicationState.GAME);
     }
 
     public void ExitButtonOnClick()
     {
-        ApplicationController.INSTANCE.QuitApplication();
+        ApplicationController.Instance.QuitApplication();
     }
 
 }

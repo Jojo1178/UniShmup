@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /*
- * Application Main controller
+ * Application's main controller
  * Accessible from any script
  */
 public class ApplicationController : MonoBehaviour {
 
-    public static ApplicationController INSTANCE; // Singleton 
+    /* Singleton */
+    private static ApplicationController _instance;
+    public static ApplicationController Instance { get { return _instance; } }
 
     public ApplicationState applicationState; // Current application state
 
@@ -19,12 +19,19 @@ public class ApplicationController : MonoBehaviour {
 
     private void Awake()
     {
-        INSTANCE = this;
-        this.SwitchApplicationState(ApplicationState.MAINMENU);
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        this.ChangeApplicationState(ApplicationState.MAINMENU);
     }
 
-    // Apply next ApplicationState to other controllers
-    public void SwitchApplicationState(ApplicationState nextState)
+    // Apply next application state to other controllers
+    public void ChangeApplicationState(ApplicationState nextState)
     {
         if (this.applicationState != nextState)
         {
@@ -44,8 +51,8 @@ public class ApplicationController : MonoBehaviour {
 public enum ApplicationState
 {
     INIT, //Application start-up
-    MAINMENU, // Application first menu
-    GAME, // Main state : Spawn player, enemies
-    GAMEOVER, // Stop game update and destroy every enemies and bullets left on screen
-    PAUSE // Stop game update to be resume later
+    MAINMENU, // Application's first menu
+    GAME, // Main state : Instantiates player, power-ups and enemies
+    GAMEOVER, // Stops game update and destroy every enemies and bullets left on screen
+    PAUSE // Stops game update to be resume later
 }

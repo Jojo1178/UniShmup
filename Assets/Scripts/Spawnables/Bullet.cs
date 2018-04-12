@@ -13,19 +13,19 @@ public class Bullet : Spawnable
 
     private void FixedUpdate()
     {
-        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
+        if (ApplicationController.Instance.applicationState == ApplicationState.GAME)
         {
             this.transform.Translate(this.direction * speed);
         }
     }
 
-    //the bullet is out of the screen
+    //The bullet is out of the screen
     private void OnBecameInvisible()
     {
         GameObject.Destroy(this.gameObject);
     }
 
-    //the bullet hit something
+    //The bullet hit something
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (this.isEnemyBullet)
