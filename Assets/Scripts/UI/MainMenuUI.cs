@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenuUI : MonoBehaviour {
 
     public Text gameTitle;
 

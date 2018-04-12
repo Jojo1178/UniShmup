@@ -8,12 +8,17 @@ using UnityEngine;
  */
 public class UIController : MonoBehaviour {
 
-    public MainMenu mainMenu;
-    public GameOverMenu gameOverMenu;
-    
+    public MainMenuUI mainMenuUI;
+    public GameOverUI gameOverUI;
+    public MainGameUI mainGameUI;
+    public PauseUI pauseUI;
+
+    //Display the UI depending on next application state
     public void SetUI(ApplicationState nextState)
     {
-        this.mainMenu.gameObject.SetActive(nextState == ApplicationState.MAINMENU);
-        this.gameOverMenu.gameObject.SetActive(nextState == ApplicationState.GAMEOVER);
+        this.mainMenuUI.gameObject.SetActive(nextState == ApplicationState.MAINMENU);
+        this.gameOverUI.gameObject.SetActive(nextState == ApplicationState.GAMEOVER);
+        this.mainGameUI.gameObject.SetActive(nextState == ApplicationState.GAME || nextState == ApplicationState.PAUSE);
+        this.pauseUI.gameObject.SetActive(nextState == ApplicationState.PAUSE);
     }
 }

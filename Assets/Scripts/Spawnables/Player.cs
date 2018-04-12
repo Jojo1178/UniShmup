@@ -1,28 +1,33 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : Spawnable
 {
-    private Weapon[] weapons;
+    private Weapon[] weapons; //Player available weapons
+    private Camera mainCamera;
 
     private void Awake()
     {
         this.rigidbodyComponent = this.gameObject.GetComponent<Rigidbody2D>();
-        this.weapons = this.gameObject.GetComponentsInChildren<Weapon>();
+        this.weapons = this.gameObject.GetComponentsInChildren<Weapon>(true);
+        this.mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        bool shootInput = Input.GetButtonDown("Fire1") | Input.GetButtonDown("Fire2");
-        if (shootInput)
+        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
         {
-            foreach (Weapon weapon in this.weapons)
+            // Checking if mouse isn't over an UI element and if fire button is pressed
+            bool shootInput = !EventSystem.current.IsPointerOverGameObject() && (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"));
+            if (shootInput)
             {
-                if (weapon.canShoot)
+                foreach (Weapon weapon in this.weapons)
                 {
-                    weapon.Shoot(false);
+                    if (weapon.enabled && weapon.canShoot)
+                    {
+                        weapon.Shoot();
+                    }
                 }
             }
         }
@@ -30,29 +35,40 @@ public class Player : Spawnable
 
     private void FixedUpdate()
     {
+        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
+        {
+            //Get direction input
+            float inputX = Input.GetAxis("Horizontal");
+            float inputY = Input.GetAxis("Vertical");
 
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
+            this.direction = new Vector2(inputX, inputY);
+            this.transform.Translate(this.direction * speed);
 
-        this.direction = new Vector2(inputX,inputY);
-
-        this.transform.Translate(this.direction * speed);
-
-        // Clamp to screen
-        Camera mainCamera = Camera.main;
-        Vector3 currentScreenPosition = mainCamera.WorldToScreenPoint(this.transform.position);
-        currentScreenPosition.x = Mathf.Clamp(currentScreenPosition.x, 0, Screen.width);
-        currentScreenPosition.y = Mathf.Clamp(currentScreenPosition.y, 0, Screen.height);
-        this.transform.position = mainCamera.ScreenToWorldPoint(currentScreenPosition);
+            // Clamp to screen
+            Vector3 currentScreenPosition = this.mainCamera.WorldToScreenPoint(this.transform.position);
+            currentScreenPosition.x = Mathf.Clamp(currentScreenPosition.x, 50, Screen.width-50);
+            currentScreenPosition.y = Mathf.Clamp(currentScreenPosition.y, 50, Screen.height-50);
+            this.transform.position = this.mainCamera.ScreenToWorldPoint(currentScreenPosition);
+        }
     }
 
-    private void OnDestroy()
+    //When player's ship is hit by a bullet or an enemy ship
+    public void OnHitByEnemy()
     {
+        GameObject.Destroy(this.gameObject);
         ApplicationController.INSTANCE.SwitchApplicationState(ApplicationState.GAMEOVER);
     }
 
-    public void OnHitByBullet()
+    //When player get a power-up
+    public void OnHitPowerUp()
     {
-        GameObject.Destroy(this.gameObject);
+        foreach(Weapon weapon in this.weapons)
+        {
+            if (!weapon.enabled)
+            {
+                weapon.enabled = true;
+                break;
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@ public class ApplicationController : MonoBehaviour {
         this.SwitchApplicationState(ApplicationState.MAINMENU);
     }
 
+    // Apply next ApplicationState to other controllers
     public void SwitchApplicationState(ApplicationState nextState)
     {
         if (this.applicationState != nextState)
@@ -42,8 +43,9 @@ public class ApplicationController : MonoBehaviour {
 
 public enum ApplicationState
 {
-    INIT,
-    MAINMENU,
-    GAMEOVER,
-    GAME
+    INIT, //Application start-up
+    MAINMENU, // Application first menu
+    GAME, // Main state : Spawn player, enemies
+    GAMEOVER, // Stop game update and destroy every enemies and bullets left on screen
+    PAUSE // Stop game update to be resume later
 }

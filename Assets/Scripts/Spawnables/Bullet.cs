@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class Bullet : Spawnable
 {
-    public bool isEnemyBullet = false;
+    public bool isEnemyBullet = false; // True if the bullet should harm the player, False if it should harm the enemies
 
     private void Awake()
     {
         this.rigidbodyComponent = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
-    private void Start () {
-        if (this.isEnemyBullet)
-            this.direction *= -1;
-	}
-
     private void FixedUpdate()
     {
-        this.transform.Translate(this.direction * speed);
+        if (ApplicationController.INSTANCE.applicationState == ApplicationState.GAME)
+        {
+            this.transform.Translate(this.direction * speed);
+        }
     }
 
+    //the bullet is out of the screen
     private void OnBecameInvisible()
     {
         GameObject.Destroy(this.gameObject);
     }
 
+    //the bullet hit something
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (this.isEnemyBullet)
@@ -33,7 +33,7 @@ public class Bullet : Spawnable
             Player playerComponent;
             if (playerComponent = collision.gameObject.GetComponent<Player>())
             {
-                playerComponent.OnHitByBullet();
+                playerComponent.OnHitByEnemy();
                 GameObject.Destroy(this.gameObject);
             }
         }

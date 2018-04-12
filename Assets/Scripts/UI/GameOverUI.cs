@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverMenu : MonoBehaviour {
+public class GameOverUI : MonoBehaviour {
 
     public Text finalScoreText;
 
